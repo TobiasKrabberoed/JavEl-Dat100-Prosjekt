@@ -1,6 +1,5 @@
 package no.hvl.dat100.javel.oppgave2;
 
-import no.hvl.dat100.javel.oppgave1.DayPowerData;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -17,13 +16,31 @@ public class MonthMain {
         System.out.println("==============");
         System.out.println();
 
-        /*
-        TODO
+        MonthlyPower.print_PowerUsage(power_usage_month);
+        MonthlyPower.print_PowerPrices(power_prices_month);
+        System.out.printf("Usage: %.2f kWh%n", MonthlyPower.computePowerUsage(power_usage_month));
+        System.out.printf("Spot price: %.2f NOK%n", MonthlyPower.computeSpotPrice(power_usage_month, power_prices_month));
+        System.out.printf("Support: %.2f NOK%n", MonthlyPower.computePowerSupport(power_usage_month, power_prices_month));
+        System.out.printf("Norgespris: %.2f NOK%n", MonthlyPower.computeNorgesPrice(power_usage_month));
+        System.out.println("Above 1000 kWh: " + MonthlyPower.exceedThreshold(power_usage_month, 1000));
 
-         Write code that tests the methods you implement in the MonthlyPower class
-         Remember to teste the methods as you implement them
-         Remember to also to check that you get the expected results
-         */
+        double[][] usage = {{2, 4}, {2, 4}};
+        double[][] prices = {{0.5, 1.9375}, {0.5, 1.9375}};
+        check(MonthlyPower.computePowerUsage(usage), 12);
+        check(MonthlyPower.computeSpotPrice(usage, prices), 17.5);
+        check(MonthlyPower.computePowerSupport(usage, prices), 7.2);
+        check(MonthlyPower.computeNorgesPrice(usage), 6);
+        if (!MonthlyPower.exceedThreshold(usage, 11)
+                || MonthlyPower.exceedThreshold(usage, 12)
+                || MonthlyPower.exceedThreshold(usage, 13)) {
+            throw new AssertionError("Incorrect threshold result");
+        }
+        System.out.println("Monthly checks passed.");
 
+    }
+    private static void check(double actual, double expected) {
+        if (Math.abs(actual - expected) > 0.000001) {
+            throw new AssertionError("Expected " + expected + ", got " + actual);
+        }
     }
 }

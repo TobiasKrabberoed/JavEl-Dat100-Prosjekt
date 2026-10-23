@@ -9,7 +9,7 @@ public class Customers {
     // a) Complete constructor
     public Customers(int size) {
 
-        // TODO
+        this.customers = new Customer[size];
 
     }
 
@@ -19,7 +19,11 @@ public class Customers {
 
         int count = 0;
 
-        // TODO
+        for (int i = 0; i < customers.length; i++) {
+            if (customers[i] != null) {
+                count++;
+            }
+        }
 
         return count;
     }
@@ -30,7 +34,14 @@ public class Customers {
         boolean funnet = false;
         Customer c = null;
 
-        // TODO
+        int i = 0;
+        while (i < customers.length && !funnet) {
+            if (customers[i] != null && customers[i].getCustomer_id() == customer_id) {
+                c = customers[i];
+                funnet = true;
+            }
+            i++;
+        }
 
         return c;
     }
@@ -40,7 +51,14 @@ public class Customers {
 
         boolean inserted = false;
 
-        // TODO
+        int i = 0;
+        while (i < customers.length && !inserted) {
+            if (customers[i] == null && c != null) {
+                customers[i] = c;
+                inserted = true;
+            }
+            i++;
+        }
 
         return inserted;
     }
@@ -51,7 +69,15 @@ public class Customers {
         boolean deleted = false;
         Customer c = null;
 
-        // TODO
+        int i = 0;
+        while (i < customers.length && !deleted) {
+            if (customers[i] != null && customers[i].getCustomer_id() == customer_id) {
+                c = customers[i];
+                customers[i] = null;
+                deleted = true;
+            }
+            i++;
+        }
 
         return c;
     }
@@ -61,7 +87,14 @@ public class Customers {
 
         Customer[] customers = null;
 
-        // TODO
+        customers = new Customer[countNonNull()];
+        int next = 0;
+        for (int i = 0; i < this.customers.length; i++) {
+            if (this.customers[i] != null) {
+                customers[next] = this.customers[i];
+                next++;
+            }
+        }
 
         return customers;
     }
